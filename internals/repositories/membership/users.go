@@ -2,6 +2,7 @@ package membership
 
 import (
 	"context"
+	"log"
 
 	"simple-forum/internals/models/membership"
 )
@@ -16,4 +17,14 @@ func (r *repository) GetUser(ctx context.Context, email, username string) (*memb
 		return nil, err
 	}
 	return &response, nil
+}
+
+func (r *repository) CreateUser(ctx context.Context, user *membership.UserModel) error {
+	query := "INSERT INTO users (email, username, password, created_at, updated_at, created_by, updated_by) VALUES ($1,$2,$3,$4,$5,$6,$7)"
+	_, err := r.db.ExecContext(ctx, query, user.Email, user.Username, user.Password, user.CreatedAt, user.UpdatedAt, user.CreatedBy, user.UpdatedBy)
+	if err != nil {
+		log.Printf("Error saat membuat user: %v\n", err)
+		return err
+	}
+	return nil
 }
