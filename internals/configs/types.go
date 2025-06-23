@@ -2,7 +2,7 @@ package configs
 
 type (
 	Config struct {
-		Service Service `yaml:"service"`
+		Service  Service  `yaml:"service"`
 		Database Database `yaml:"database"`
 	}
 
@@ -11,6 +11,6 @@ type (
 	}
 
 	Database struct {
-		DataSourceName string `mapstructure:"dataSourceName`
+		DataSourceName string `mapstructure:"dataSourceName"`
 	}
 )
