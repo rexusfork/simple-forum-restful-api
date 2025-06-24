@@ -1,6 +1,7 @@
 package membership
 
 import (
+	"context"
 	"simple-forum/internals/models/membership"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ type Handler struct {
 }
 
 type membershipService interface {
-	Signup(c *gin.Context, req membership.SignUpRequest) error
+	Signup(c context.Context, req membership.SignUpRequest) error
 }
 
 func NewHandler(api *gin.Engine, membershipSvc membershipService) *Handler {
