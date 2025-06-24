@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"simple-forum/internals/models/membership"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,6 +25,8 @@ func (h *Handler) Signup(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
-		return 
+		return
 	}
+
+	c.JSON(http.StatusCreated, nil)
 }
