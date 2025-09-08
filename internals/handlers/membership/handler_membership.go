@@ -14,6 +14,7 @@ type Handler struct {
 
 type membershipService interface {
 	Signup(c context.Context, req membership.SignUpRequest) error
+	Login(ctx context.Context, request membership.LoginRequest) (string, error)
 }
 
 func NewHandler(api *gin.Engine, membershipSvc membershipService) *Handler {
@@ -27,4 +28,5 @@ func (h *Handler) RegisterRoutes() {
 	route := h.Group("membership")
 	route.GET("/ping", h.Ping)
 	route.POST("/signup", h.Signup)
+	route.POST("/login", h.Login)
 }
