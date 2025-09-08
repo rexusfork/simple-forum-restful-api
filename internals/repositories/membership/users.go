@@ -9,7 +9,7 @@ import (
 )
 
 func (r *repository) GetUser(ctx context.Context, email, username string) (*membership.UserModel, error) {
-	query := "SELECT id, email, username, password, created_at, updated_at, created_by, updated_by FROM users WHERE email = $1 OR username = $2"
+	query := "SELECT id, email, username, password, created_at, updated_at, created_by, updated_by FROM users WHERE email = ? OR username = ?"
 	row := r.db.QueryRowContext(ctx, query, email, username)
 	var response membership.UserModel
 
@@ -23,8 +23,8 @@ func (r *repository) GetUser(ctx context.Context, email, username string) (*memb
 	return &response, nil
 }
 
-func (r *repository) CreateUser(ctx context.Context, user *membership.UserModel) error {
-	query := "INSERT INTO users (email, username, password, created_at, updated_at, created_by, updated_by) VALUES ($1,$2,$3,$4,$5,$6,$7)"
+func (r *repository) CreateUser(ctx context.Context, user membership.UserModel) error {
+	query := "INSERT INTO users (email, username, password, created_at, updated_at, created_by, updated_by) VALUES (?,?,?,?,?,?,?)"
 	_, err := r.db.ExecContext(ctx, query, user.Email, user.Username, user.Password, user.CreatedAt, user.UpdatedAt, user.CreatedBy, user.UpdatedBy)
 	if err != nil {
 		log.Printf("Error saat membuat user: %v\n", err)

@@ -5,6 +5,7 @@ import (
 	"simple-forum/internals/configs"
 	"simple-forum/internals/handlers/membership"
 	membershipRepo "simple-forum/internals/repositories/membership"
+	membershipSvc "simple-forum/internals/services/membership"
 	"simple-forum/pkg/internals"
 
 	"github.com/gin-gonic/gin"
@@ -33,10 +34,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Gagal menghubungkan ke database: %v", err)
 	}
+	
+	// Membership 
+	membershipRepo := membershipRepo.NewRepository(db)
+	membershipService := membershipSvc.NewService(membershipRepo)
+	membershipHandler := membership.NewHandler(route, membershipService)
 
-	_ = membershipRepo.NewRepository(db)
 
-	membershipHandler := membership.NewHandler(route)
 	membershipHandler.RegisterRoutes()
 
 	route.Run(config.Service.Port)

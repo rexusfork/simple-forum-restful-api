@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func (s *service) Signup(ctx context.Context, req *membership.SignUpRequest) error {
+func (s *service) Signup(ctx context.Context, req membership.SignUpRequest) error {
 	user, err := s.membershipRepo.GetUser(ctx, req.Email, req.Password)
 	if err != nil {
 		return err
