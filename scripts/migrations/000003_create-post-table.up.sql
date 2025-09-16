@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS post (
+    ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    post_title VARCHAR(250) NOT NULL,
+    post_content LONGTEXT NOT NULL,
+    post_hastags LONGTEXT NOT NULL,
+    created_by LONGTEXT NOT NULL,
+    updated_by LONGTEXT NOT NULL
+)
